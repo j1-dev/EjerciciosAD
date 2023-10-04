@@ -10,6 +10,10 @@ public class Principal {
     private JButton btGuardar;
     private JPanel panelPrincipal;
     private JTextField tfFecha;
+    private JButton btArriba;
+    private JButton btAbajo;
+    private JButton btPrimero;
+    private JButton btUltimo;
 
     public Principal(){
         JFrame frame = new JFrame("Main");
@@ -88,5 +92,37 @@ public class Principal {
 
     public void setTfFecha(JTextField tfFecha) {
         this.tfFecha = tfFecha;
+    }
+
+    public JButton getBtArriba() {
+        return btArriba;
+    }
+
+    public void setBtArriba(JButton btArriba) {
+        this.btArriba = btArriba;
+    }
+
+    public JButton getBtAbajo() {
+        return btAbajo;
+    }
+
+    public void setBtAbajo(JButton btAbajo) {
+        this.btAbajo = btAbajo;
+    }
+
+    public JButton getBtPrimero() {
+        return btPrimero;
+    }
+
+    public void setBtPrimero(JButton btPrimero) {
+        this.btPrimero = btPrimero;
+    }
+
+    public JButton getBtUltimo() {
+        return btUltimo;
+    }
+
+    public void setBtUltimo(JButton btUltimo) {
+        this.btUltimo = btUltimo;
     }
 }

@@ -26,6 +26,10 @@ public class PrincipalController implements ActionListener, ListSelectionListene
     public void addListeners(ActionListener alistener, ListSelectionListener llistener){
         vista.getBtGuardar().addActionListener(alistener);
         vista.getBtNuevo().addActionListener(alistener);
+        vista.getBtPrimero().addActionListener(alistener);
+        vista.getBtArriba().addActionListener(alistener);
+        vista.getBtAbajo().addActionListener(alistener);
+        vista.getBtUltimo().addActionListener(alistener);
         vista.getListaAlumnos().addListSelectionListener(llistener);
     }
 
@@ -81,11 +85,48 @@ public class PrincipalController implements ActionListener, ListSelectionListene
             case "Guardar":
                 guardarAlumno();
                 break;
-            case "Exportar":
-                //exportarAlumnos();
+            case "Primero":
+                irPrimero();
+                break;
+            case "Arriba":
+                irArriba();
+                break;
+            case "Abajo":
+                irAbajo();
+                break;
+            case "Ultimo":
+                irUltimo();
                 break;
             default: break;
         }
+    }
+
+    public void irPrimero(){
+        posicion = 0;
+        vista.getListaAlumnos().setSelectedIndex(posicion);
+    }
+
+    public void irAbajo(){
+        posicion = vista.getListaAlumnos().getSelectedIndex()+1;
+        if(posicion >= 0 && posicion < alumnos.size()){
+            vista.getListaAlumnos().setSelectedIndex(posicion);
+        } else {
+            vista.getListaAlumnos().setSelectedIndex(0);
+        }
+    }
+
+    public void irArriba(){
+        posicion = vista.getListaAlumnos().getSelectedIndex()-1;
+        if(posicion >= 0 && posicion < alumnos.size()){
+            vista.getListaAlumnos().setSelectedIndex(posicion);
+        } else {
+            vista.getListaAlumnos().setSelectedIndex(alumnos.size()-1);
+        }
+    }
+
+    public void irUltimo(){
+        posicion = alumnos.size()-1;
+        vista.getListaAlumnos().setSelectedIndex(posicion);
     }
 
     @Override
@@ -94,13 +135,17 @@ public class PrincipalController implements ActionListener, ListSelectionListene
             int aux=vista.getListaAlumnos().getSelectedIndex();
             if((aux >= 0)&&(aux < alumnos.size())){
                 posicion=aux;
-                Alumno alumno = alumnos.get(posicion);
-                vista.getTfNombre().setText(alumno.getNombre());
-                vista.getTfApellidos().setText(alumno.getApellidos());
-                vista.getTfFecha().setText(alumno.getfNacimiento());
-                vista.getCbCiclo().setSelectedIndex(getIndex(alumno.getCiclo()));
+                rellenarCampos(posicion);
             }
         }
+    }
+
+    private void rellenarCampos(int index){
+        Alumno alumno = alumnos.get(index);
+        vista.getTfNombre().setText(alumno.getNombre());
+        vista.getTfApellidos().setText(alumno.getApellidos());
+        vista.getTfFecha().setText(alumno.getfNacimiento());
+        vista.getCbCiclo().setSelectedIndex(getIndex(alumno.getCiclo()));
     }
 
     private int getIndex(String ciclo){
