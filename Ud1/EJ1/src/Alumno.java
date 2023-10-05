@@ -11,7 +11,7 @@ public class Alumno implements Serializable {
     public Alumno() {
     }
 
-    public Alumno(String apellidos, String nombre, String fNacimiento, String ciclo) {
+    public Alumno(String nombre, String apellidos, String fNacimiento, String ciclo) {
         this.apellidos = apellidos;
         this.nombre = nombre;
         this.fNacimiento = fNacimiento;

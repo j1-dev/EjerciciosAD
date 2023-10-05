@@ -14,6 +14,7 @@ public class Principal {
     private JButton btAbajo;
     private JButton btPrimero;
     private JButton btUltimo;
+    private JButton btExportar;
 
     public Principal(){
         JFrame frame = new JFrame("Main");
@@ -124,5 +125,13 @@ public class Principal {
 
     public void setBtUltimo(JButton btUltimo) {
         this.btUltimo = btUltimo;
+    }
+
+    public JButton getBtExportar() {
+        return btExportar;
+    }
+
+    public void setBtExportar(JButton btExportar) {
+        this.btExportar = btExportar;
     }
 }
