@@ -176,7 +176,6 @@ public class PrincipalController implements ActionListener, ListSelectionListene
             for (Alumno a: alumnos) {
                 escritor.println(a.getNombre()+" "+a.getApellidos()+": "+a.getfNacimiento()+" - "+a.getCiclo());
             }
-            escritor.println("Primera línea de fichero para el primer ejemplo");
         } catch (IOException ioe) {
             ioe.printStackTrace();
         } finally {
