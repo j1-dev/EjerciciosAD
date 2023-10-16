@@ -2,6 +2,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.xml.parsers.DocumentBuilder;
@@ -22,13 +23,13 @@ public class PrincipalController implements ActionListener, ListSelectionListene
     private DefaultListModel<String> modeloLista;
     private Principal vista;
     private int posicion;
-    private int posInterna;
+    private int posPelicula;
 
     public PrincipalController(Principal vista){
         this.vista = vista;
         addListeners(this,this);
         posicion = -1;
-        posInterna = -1;
+        posPelicula = -1;
         peliculas = new ArrayList<>();
         actores = new ArrayList<>();
         modeloLista = new DefaultListModel<String>();
@@ -37,6 +38,8 @@ public class PrincipalController implements ActionListener, ListSelectionListene
 
     public void addListeners(ActionListener alistener, ListSelectionListener llistener){
         vista.getBtImportar().addActionListener(alistener);
+        vista.getBtSiguiente().addActionListener(alistener);
+        vista.getBtAnterior().addActionListener(alistener);
         vista.getListaActores().addListSelectionListener(llistener);
     }
 
@@ -49,10 +52,27 @@ public class PrincipalController implements ActionListener, ListSelectionListene
                 break;
             case "Anterior":
                 anteriorPelicula();
+                break;
             case "Importar":
                 importarPeliculas();
                 break;
             default: break;
+        }
+    }
+
+    private void siguientePelicula(){
+        System.out.println(posPelicula);
+        if(posPelicula < peliculas.size()-1){
+            int pos = posPelicula+1;
+            rellenarCampos(pos);
+        }
+    }
+
+    private void anteriorPelicula(){
+        System.out.println(posPelicula);
+        if(posPelicula > 0){
+            int pos = posPelicula-1;
+            rellenarCampos(pos);
         }
     }
 
@@ -65,50 +85,70 @@ public class PrincipalController implements ActionListener, ListSelectionListene
             // Ver la extension del archivo
             File fileToSave = fileChooser.getSelectedFile();
             String ruta = fileToSave.getAbsolutePath();
-            ruta += ".xml";
             // Elegir funcion a ejecutar dependiendo de la extension
+            System.out.println(ruta);
             leerFicheroXML(ruta);
-
         }
     }
 
     public void leerFicheroXML(String ruta) {
         peliculas.clear();
+
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document documento = builder.parse(new File(ruta));
-            NodeList plcs = documento.getElementsByTagName("peliculas");
-            for (int i = 0; i < plcs.getLength(); i++) {
-                Node pelicula = plcs.item(i);
-                Element elemento = (Element) pelicula;
-                String nombre = elemento.getElementsByTagName("nombre").item(0)
-                        .getChildNodes().item(0).getNodeValue();
-                String fecha = elemento.getElementsByTagName("fecha").item(0)
-                        .getChildNodes().item(0).getNodeValue();
-                String genero = elemento.getElementsByTagName("genero").item(0)
-                        .getChildNodes().item(0).getNodeValue();
-                String sinopsis = elemento.getElementsByTagName("sinopsis").item(0)
-                        .getChildNodes().item(0).getNodeValue();
-                NodeList actrs = elemento.getElementsByTagName("actores");
-                ArrayList<String> nombresActores = new ArrayList<>();
-                for (int j = 0; j < actrs.getLength(); j++){
-                    Node actor = actrs.item(j);
-                    Element el = (Element) actor;
-                    String nom = el.getElementsByTagName("nombre").item(0)
-                            .getChildNodes().item(0).getNodeValue();
-                    nombresActores.add(nom);
+
+            NodeList peliculasList = documento.getElementsByTagName("pelicula");
+
+            for (int i = 0; i < peliculasList.getLength(); i++) {
+                Node pelicula = peliculasList.item(i);
+                if (pelicula.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element) pelicula;
+
+                    String nombre = elemento.getElementsByTagName("nombre").item(0)
+                            .getTextContent();
+                    String fecha = elemento.getElementsByTagName("fecha").item(0)
+                            .getTextContent();
+                    String genero = elemento.getElementsByTagName("genero").item(0)
+                            .getTextContent();
+                    String sinopsis = elemento.getElementsByTagName("sinopsis").item(0)
+                            .getTextContent();
+
+                    NodeList actoresList = elemento.getElementsByTagName("actor");
+                    ArrayList<String> nombresActores = new ArrayList<>();
+                    for (int j = 0; j < actoresList.getLength(); j++) {
+                        Element actorElement = (Element) actoresList.item(j);
+                        String nom = actorElement.getElementsByTagName("nombre").item(0)
+                                .getTextContent();
+                        nombresActores.add(nom);
+                    }
+
+                    Pelicula aux = new Pelicula(nombre, fecha, genero, sinopsis, nombresActores);
+                    peliculas.add(aux);
                 }
-                Pelicula aux = new Pelicula(nombre,fecha,genero,sinopsis,nombresActores);
-                peliculas.add(aux);
             }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
+            rellenarCampos(0);
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
+    }
+
+    private void rellenarCampos(int index){
+        Pelicula pelicula = peliculas.get(index);
+        vista.getTfTitulo().setText(pelicula.getNombre());
+        vista.getTfFecha().setText(pelicula.getFecha());
+        vista.getTfGenero().setText(pelicula.getGenero());
+        vista.getTfSinopsis().setText(pelicula.getSinopsis());
+        ArrayList<String> actores = pelicula.getActores();
+        this.actores = actores;
+        int i = 0;
+        modeloLista.clear();
+        for (String actor: actores) {
+            modeloLista.add(i++, actor);
+        }
+        posPelicula = index;
+        posicion = 0;
     }
 
     @Override

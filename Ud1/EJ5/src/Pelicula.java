@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Pelicula {
     private String nombre;
-    private String descripcion;
+    private String fecha;
     private String genero;
     private String sinopsis;
     private ArrayList<String> actores;
 
-    public Pelicula(String nombre, String descripcion, String genero, String sinopsis, ArrayList<String> actores) {
+    public Pelicula(String nombre, String fecha, String genero, String sinopsis, ArrayList<String> actores) {
         this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.fecha = fecha;
         this.genero = genero;
         this.sinopsis = sinopsis;
         this.actores = actores;
@@ -23,12 +23,12 @@ public class Pelicula {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getGenero() {
@@ -53,5 +53,16 @@ public class Pelicula {
 
     public void setActores(ArrayList<String> actores) {
         this.actores = actores;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "nombre='" + nombre + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", genero='" + genero + '\'' +
+                ", sinopsis='" + sinopsis + '\'' +
+                ", actores=" + actores.toString() +
+                '}';
     }
 }

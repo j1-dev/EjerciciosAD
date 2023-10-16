@@ -5,7 +5,7 @@ public class Principal {
     private JTextField tfTitulo;
     private JTextField tfFecha;
     private JTextField tfGenero;
-    private JTextField tfSinopsis;
+    private JTextArea tfSinopsis;
     private JList listaActores;
     private JButton btImportar;
     private JLabel etTitulo;
@@ -22,6 +22,7 @@ public class Principal {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        tfSinopsis.setLineWrap(true);
     }
 
     public JPanel getPanelPrincipal() {
@@ -56,11 +57,11 @@ public class Principal {
         this.tfGenero = tfGenero;
     }
 
-    public JTextField getTfSinopsis() {
+    public JTextArea getTfSinopsis() {
         return tfSinopsis;
     }
 
-    public void setTfSinopsis(JTextField tfSinopsis) {
+    public void setTfSinopsis(JTextArea tfSinopsis) {
         this.tfSinopsis = tfSinopsis;
     }
 
@@ -110,5 +111,21 @@ public class Principal {
 
     public void setEtSinopsis(JLabel etSinopsis) {
         this.etSinopsis = etSinopsis;
+    }
+
+    public JButton getBtSiguiente() {
+        return btSiguiente;
+    }
+
+    public void setBtSiguiente(JButton btSiguiente) {
+        this.btSiguiente = btSiguiente;
+    }
+
+    public JButton getBtAnterior() {
+        return btAnterior;
+    }
+
+    public void setBtAnterior(JButton btAnterior) {
+        this.btAnterior = btAnterior;
     }
 }
