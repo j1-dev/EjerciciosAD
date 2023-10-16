@@ -4,7 +4,7 @@ public class Principal {
     private JTextField tfNombre;
     private JLabel etNombre;
     private JLabel etDescripcion;
-    private JTextField tfDescripcion;
+    private JTextArea tfDescripcion;
     private JList listaIngredientes;
     private JButton btPlus;
     private JButton btMinus;
@@ -20,6 +20,7 @@ public class Principal {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        tfDescripcion.setLineWrap(true);
     }
 
     public JTextField getTfNombre() {
@@ -46,11 +47,11 @@ public class Principal {
         this.etDescripcion = etDescripcion;
     }
 
-    public JTextField getTfDescripcion() {
+    public JTextArea getTfDescripcion() {
         return tfDescripcion;
     }
 
-    public void setTfDescripcion(JTextField tfDescripcion) {
+    public void setTfDescripcion(JTextArea tfDescripcion) {
         this.tfDescripcion = tfDescripcion;
     }
 
