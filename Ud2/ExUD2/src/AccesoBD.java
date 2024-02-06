@@ -1,14 +1,15 @@
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class AccesoBD {
 
     private static AccesoBD me=null;
-
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    private AccesoBD(){
+    final private String MYSQL_USER = "juan";
+    final private String MYSQL_PASS = "password";
+    final private String PSQL_USER = "postgres";
+    final private String PSQL_PASS = "postgres";
+    public AccesoBD(){
 
     }
 
@@ -62,23 +63,21 @@ public class AccesoBD {
         }
     }
 
-    public ArrayList<Alumno> getAlumnos(boolean mysql){
+    public ArrayList<Persona> getPersonas(boolean mysql){
         Connection conexion = connect(mysql);
-        String sentenciaSql = "SELECT idalumno, nombre, apellidos, fechanacimiento, ciclo FROM alumno ORDER BY idalumno ASC";
+        String sentenciaSql = "SELECT idpersona, nombre, provincia FROM persona ORDER BY idpersona ASC";
         PreparedStatement sentencia = null;
         ResultSet resultado = null;
-        ArrayList<Alumno> alumnos=new ArrayList<>();
+        ArrayList<Persona> personas =new ArrayList<>();
         try {
             sentencia = conexion.prepareStatement(sentenciaSql);
             resultado = sentencia.executeQuery();
             while (resultado.next()) {
-                Alumno alumno=new Alumno();
-                alumno.setIdAlumno(resultado.getLong(1));
-                alumno.setNombre(resultado.getString(2));
-                alumno.setApellidos(resultado.getString(3));
-                alumno.setfNacimiento(sdf.format(resultado.getDate(4)));
-                alumno.setCiclo(resultado.getInt(5));
-                alumnos.add(alumno);
+                Persona persona =new Persona();
+                persona.setIdPersona(resultado.getLong(1));
+                persona.setNombre(resultado.getString(2));
+                persona.setProvincia(resultado.getInt(3));
+                personas.add(persona);
             }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -86,31 +85,27 @@ public class AccesoBD {
             if (sentencia != null) {
                 try {
                     sentencia.close();
+                    assert resultado != null;
                     resultado.close();
                 } catch (SQLException sqle) {
                     sqle.printStackTrace();
                 }
             }
         }
-        return alumnos;
+        return personas;
     }
 
-    public void insertarAlumno(boolean mysql, Alumno alumno){
+    public void insertarPersona(boolean mysql, Persona persona){
         Connection conexion = connect(mysql);
-        String sentenciaSql = "INSERT INTO alumno (idalumno, nombre, apellidos, fechanacimiento, ciclo) VALUES (?,?,?,?,?)";
+        String sentenciaSql = "INSERT INTO persona (nombre, provincia) VALUES (?,?)";
         PreparedStatement sentencia = null;
         try {
             sentencia = conexion.prepareStatement(sentenciaSql);
-            sentencia.setLong(1, alumno.getIdAlumno());
-            sentencia.setString(2,alumno.getNombre());
-            sentencia.setString(3,alumno.getApellidos());
-            sentencia.setDate(4, new java.sql.Date(sdf.parse(alumno.getfNacimiento()).getTime()));
-            sentencia.setInt(5, alumno.getCiclo());
+            sentencia.setString(1, persona.getNombre());
+            sentencia.setInt(2, persona.getProvincia());
             sentencia.executeUpdate();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         } finally {
             if (sentencia != null)
                 try {
@@ -122,22 +117,18 @@ public class AccesoBD {
         }
     }
 
-    public void modificarAlumno(boolean mysql, Alumno alumno){
+    public void modificarPersona(boolean mysql, Persona persona){
         Connection conexion = connect(mysql);
-        String sentenciaSql = "UPDATE alumno SET nombre=?, apellidos=?, fechanacimiento=?, ciclo=? WHERE idalumno=?";
+        String sentenciaSql = "UPDATE persona SET nombre=?, provincia=? WHERE idpersona=?";
         PreparedStatement sentencia = null;
         try {
             sentencia = conexion.prepareStatement(sentenciaSql);
-            sentencia.setString(1, alumno.getNombre());
-            sentencia.setString(2,alumno.getApellidos());
-            sentencia.setDate(3, new java.sql.Date(sdf.parse(alumno.getfNacimiento()).getTime()));
-            sentencia.setInt(4, alumno.getCiclo());
-            sentencia.setLong(5,alumno.getIdAlumno());
+            sentencia.setString(1, persona.getNombre());
+            sentencia.setInt(2, persona.getProvincia());
+            sentencia.setLong(3, persona.getIdPersona());
             sentencia.executeUpdate();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         } finally {
             if (sentencia != null)
                 try {
@@ -149,9 +140,9 @@ public class AccesoBD {
         }
     }
 
-    public void eliminarAlumno(boolean mysql, long ide){
+    public void eliminarPersona(boolean mysql, long ide){
         Connection conexion = connect(mysql);
-        String sentenciaSql = "DELETE FROM alumno WHERE idalumno=?";
+        String sentenciaSql = "DELETE FROM persona WHERE idpersona=?";
         PreparedStatement sentencia = null;
         try {
             sentencia = conexion.prepareStatement(sentenciaSql);
@@ -173,10 +164,10 @@ public class AccesoBD {
     public Connection connect(boolean mysql){
         Connection conexion;
         if(mysql){
-            conexion=this.conectarMySQL("ejercicio1","root","poflo123");
+            conexion=this.conectarMySQL("examenud2",MYSQL_USER,MYSQL_PASS);
         }
         else{
-            conexion=this.conectarPostgreSQL("ejercicio1","aplicacion","poflo123");
+            conexion=this.conectarPostgreSQL("examenud2",PSQL_USER,PSQL_PASS);
         }
         return conexion;
     }

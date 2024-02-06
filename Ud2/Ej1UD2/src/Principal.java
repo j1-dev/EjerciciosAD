@@ -16,6 +16,7 @@ public class Principal {
     private JButton btUltimo;
     private JButton btExportar;
     private JButton btEliminar;
+    private JLabel lbError;
 
     public Principal(){
         JFrame frame = new JFrame("Main");
@@ -142,5 +143,13 @@ public class Principal {
 
     public void setBtEliminar(JButton btEliminar) {
         this.btEliminar = btEliminar;
+    }
+
+    public JLabel getLbError() {
+        return lbError;
+    }
+
+    public void setLbError(JLabel lbError) {
+        this.lbError = lbError;
     }
 }
