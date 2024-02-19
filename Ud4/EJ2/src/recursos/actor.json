@@ -1,0 +1,63 @@
+[
+  {
+    "nombre": "Leonardo di Caprio",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644b"
+    }
+  },
+  {
+    "nombre": "Brad Pitt",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644b"
+    }
+  },
+  {
+    "nombre": "Margot Robbie",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644b"
+    }
+  },
+  {
+    "nombre": "John Travolta",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644c"
+    }
+  },
+  {
+    "nombre": "Samuel L Jackson",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644c"
+    }
+  },
+  {
+    "nombre": "Uma Thurman",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644c"
+    }
+  },
+  {
+    "nombre": "Bruce Willis",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644c"
+    }
+  },
+  {
+    "nombre": "Brad Pitt",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644d"
+    }
+  },
+  {
+    "nombre": "Christoph Waltz",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644d"
+    }
+  },
+  {
+    "nombre": "Diane Kruger",
+    "idpelicula": {
+      "$oid": "65d309b326521fd8946e644d"
+    }
+  }
+]
+

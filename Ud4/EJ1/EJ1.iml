@@ -7,28 +7,28 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Librerías MongoDB/bson-4.11.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/bson-4.11.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Librerías MongoDB/mongodb-driver-core-4.11.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mongodb-driver-core-4.11.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Librerías MongoDB/mongodb-driver-sync-4.11.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mongodb-driver-sync-4.11.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

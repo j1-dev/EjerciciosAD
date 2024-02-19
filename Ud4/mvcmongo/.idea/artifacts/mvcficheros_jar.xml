@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="mvcficheros:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/mvcficheros_jar</output-path>
     <root id="archive" name="mvcficheros.jar">
-      <element id="module-output" name="mvcficheros" />
+      <element id="module-output" name="mvcmongo" />
       <element id="extracted-dir" path="$USER_HOME$/Documentos/mysql-connector-j-8.1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Documentos/postgresql-42.6.0.jar" path-in-jar="/" />
     </root>
